@@ -1,45 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class TransitionLevel : BaseLevel {
-    Text loading;
-    int complete = 0;
+public class TransitionLevel : BaseLevel
+{
     bool levelLoading = false;
+    int complete = 0;
+    Text loading;
 
-	// Use this for initialization
-	internal override void LevelStart ()
+    // Use this for initialization
+    internal override void LevelStart ()
     {
         loading = GameObject.Find("Canvas/Percent").GetComponent<Text>();
-    }
-
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        Debug.Log("OnSceneLoaded: " + scene.name);
-        Debug.Log(mode);
     }
 
     // Update is called once per frame
     internal override void LevelUpdate ()
     {
+        // Fake increase of loading % and updating the text
         if (!levelLoading)
         {
             complete++;
-
             loading.text = complete + "%";
-
-            if (complete >= 97)
+            if (complete >= 100)
             {
+                // Stop the fake loading, and actually load the level
                 levelLoading = true;
                 NextLevel();
             }
         }
     }
 
+    // Load the Game level
     void NextLevel()
     {
-        SceneManager.LoadSceneAsync("Game", LoadSceneMode.Additive);
+        managerGame.LoadLevel("Game");
     }
 }

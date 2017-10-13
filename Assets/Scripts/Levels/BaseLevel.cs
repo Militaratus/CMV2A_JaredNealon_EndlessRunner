@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BaseLevel : MonoBehaviour
 {
@@ -24,10 +22,10 @@ public class BaseLevel : MonoBehaviour
             GameObject prefabManagers = Resources.Load("__Managers") as GameObject;
             managers = Instantiate(prefabManagers);
         }
-
         managerGame = managers.GetComponent<GameManager>();
     }
 
+    // Override this to add more Start functionality besides the original
     internal virtual void LevelStart()
     {
 
@@ -39,6 +37,7 @@ public class BaseLevel : MonoBehaviour
         LevelUpdate();
     }
 
+    // Override this to add more Update functionality besides the original
     internal virtual void LevelUpdate()
     {
 
